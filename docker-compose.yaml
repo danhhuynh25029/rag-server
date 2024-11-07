@@ -1,0 +1,25 @@
+version: "3"
+services:
+  weaviate_db:
+    command:
+      - --host
+      - 0.0.0.0
+      - --port
+      - '5555'
+      - --scheme
+      - http
+    image: cr.weaviate.io/semitechnologies/weaviate:1.26.4
+    ports:
+      - 5555:5555
+      - 50051:50051
+    volumes:
+      - ./weaviate_db_data:/var/lib/weaviate
+    logging:
+      driver: none
+    environment:
+      QUERY_DEFAULTS_LIMIT: 25
+      AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'true'
+      PERSISTENCE_DATA_PATH: '/var/lib/weaviate'
+      DEFAULT_VECTORIZER_MODULE: 'none'
+      ENABLE_API_BASED_MODULES: 'true'
+      CLUSTER_HOSTNAME: 'node1'
